@@ -19,7 +19,13 @@
                 <td th:text="${book.Title}">Title</td>
                 <td th:text="${book.isbn}">ISBN</td>
                 <td th:text="${book.publicationYear}">Year</td>
+                <td>
+                    <form th:action="@{/books/delete/{id}(id=${book.id})}" method="post">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
         </tr>
     </table>
+    <a href="/addbook"><button>Add Book</button></a>
 </body>
 </html>
