@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tervetuloa</title>
 </head>
 <body>
-    <h1>Tervetuloa kirjakauppaan!</h1>
+    <h1>Books</h1>
+    <table>
+        <tr>
+            <th>Author</th>
+            <th>Title</th>
+            <th>ISBN</th>
+            <th>Year</th>
+        </tr>
+        <tr th:each="book : ${books}">
+                <td th:text="${book.Author}">Author</td>
+                <td th:text="${book.Title}">Title</td>
+                <td th:text="${book.isbn}">ISBN</td>
+                <td th:text="${book.publicationYear}">Year</td>
+        </tr>
+    </table>
 </body>
 </html>
