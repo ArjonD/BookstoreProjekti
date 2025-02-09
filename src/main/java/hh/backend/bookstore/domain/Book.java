@@ -1,6 +1,17 @@
 package hh.backend.bookstore.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Book {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
     private String title;
     private String author;
     private int publicationYear;
@@ -8,6 +19,7 @@ public class Book {
     private double price;
 
     public Book() {
+        this.id = 0;
         this.title = null;
         this.author = null;
         this.publicationYear = 0;
@@ -21,6 +33,10 @@ public class Book {
         this.publicationYear = publicationYear;
         this.isbn = isbn;
         this.price = price;
+    }
+    
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setTitle(String title) {
@@ -41,6 +57,10 @@ public class Book {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -68,5 +88,6 @@ public class Book {
         return "Book [title=" + title + ", author=" + author + ", publicationYear=" + publicationYear + ", isbn=" + isbn
                 + ", price=" + price + "]";
     }
+
 
 }
