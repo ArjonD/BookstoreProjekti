@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CategoryForm</title>
+</head>
+<body>
+    <h1>Add Category</h1>
+    <form method="post" action="#" th:action="@{/addcategory}" th:object="${category}">
+        <p>Name:<input type="text" th:field="*{name}" placeholder="Name"></p>
+        <p><button type="submit">Add</button></p>
+    </form>
+</body>
+</html>

@@ -1,31 +1,43 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tervetuloa</title>
+    <link type="text/css" rel="stylesheet" href="/tyylit/bootstrap-4.5.3-dist/css/bootstrap.min.css" th:href="@{/tyylit/bootstrap-4.5.3-dist/css/bootstrap.min.css}" />
 </head>
+
 <body>
-    <h1>Books</h1>
-    <table>
-        <tr>
-            <th>Author</th>
-            <th>Title</th>
-            <th>ISBN</th>
-            <th>Year</th>
-        </tr>
-        <tr th:each="book : ${books}">
-                <td th:text="${book.Author}">Author</td>
-                <td th:text="${book.Title}">Title</td>
+    <div class="container">
+        <h1>Books</h1>
+        <table class="table table-striped">
+            <tr>
+                <th>Author</th>
+                <th>Title</th>
+                <th>ISBN</th>
+                <th>Year</th>
+                <th></th>
+            </tr>
+            <tr th:each="book : ${books}">
+                <td th:text="${book.author}">Author</td>
+                <td th:text="${book.title}">Title</td>
                 <td th:text="${book.isbn}">ISBN</td>
                 <td th:text="${book.publicationYear}">Year</td>
                 <td>
-                    <form th:action="@{/books/delete/{id}(id=${book.id})}" method="post">
-                        <button type="submit">Delete</button>
+                    <form th:action="@{/books/delete/{id}(id=${book.id})}" method="post" style="display:inline;">
+                        <input type="hidden" name="_method" value="delete" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
+                    <a th:href="@{/editbook/{id}(id=${book.id})}" style="display:inline;">
+<button class="btn btn-primary">Edit</button>
+</a>
                 </td>
-        </tr>
-    </table>
-    <a href="/addbook"><button>Add Book</button></a>
+            </tr>
+        </table>
+        <br>
+        <a href="/addbook"><button class="btn btn-success">Add Book</button></a>
+    </div>
 </body>
+
 </html>

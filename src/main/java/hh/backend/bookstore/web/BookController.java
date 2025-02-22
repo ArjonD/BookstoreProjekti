@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import hh.backend.bookstore.domain.Book;
 import hh.backend.bookstore.domain.BookRepository;
@@ -21,7 +22,7 @@ public class BookController {
     private BookRepository bookRepository;
 
     @GetMapping("/index")
-    public String GetBooks(Model model) {
+    public String getBooks(Model model) {
         model.addAttribute("books", bookRepository.findAll());
         return "booklist";
     }
@@ -31,6 +32,12 @@ public class BookController {
         model.addAttribute("book", new Book());
         return "addbook";
     }
+
+    @PostMapping("/addbook")
+    public String addBook(@ModelAttribute Book book) {
+        bookRepository.save(book);
+        return "redirect:/index";
+    }
     
     @PostMapping("/books/delete/{id}")
     public String deleteBook(@PathVariable("id") Long bookId) {
@@ -38,8 +45,16 @@ public class BookController {
         return "redirect:/index";
     }
 
-    @PostMapping("/addbook")
-    public String addBook(@ModelAttribute Book book) {
+    @RequestMapping(value = "/editbook/{id}")
+    public String showModStu(@PathVariable("id") Long bookId, Model model){
+        model.addAttribute("book", bookRepository.findById(bookId).get());
+    return "editbook";
+}
+
+
+    @PostMapping("/editbook/{id}")
+    public String updateBook(@PathVariable("id") Long bookId, @ModelAttribute Book book) {
+        book.setId(bookId); 
         bookRepository.save(book);
         return "redirect:/index";
     }
