@@ -16,13 +16,17 @@ public class BookstoreApplication {
 	@Bean
 	public CommandLineRunner demo(BookRepository bookRepository, CategoryRepository categoryRepository) {
 		return (args) -> {
-			categoryRepository.save(new Category("Scifi"));
-			categoryRepository.save(new Category("Comic"));
-			categoryRepository.save(new Category("Fiction"));
+			Category scifi = new Category("Scifi");
+			Category comic = new Category("Comic");
+			Category fiction = new Category("Fiction");
 
-			bookRepository.save(new Book("Moby-Dick", "Herman Melville", 1851, "9781503280786", 14.50));
-			bookRepository.save(new Book("To Kill a Mockingbird", "Harper Lee", 1960, "9780061120084", 11.99));
-		
+			categoryRepository.save(scifi);
+			categoryRepository.save(comic);
+			categoryRepository.save(fiction);
+
+			bookRepository.save(new Book("Moby-Dick", "Herman Melville", 1851, "9781503280786", 14.50, scifi));
+			bookRepository.save(new Book("To Kill a Mockingbird", "Harper Lee", 1960, "9780061120084", 11.99, fiction));
+
 			System.out.println("Fetch all categories");
 			categoryRepository.findAll().forEach(category -> System.out.println(category));
 			System.out.println("Fetch all books");

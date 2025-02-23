@@ -17,6 +17,7 @@
                 <th>Title</th>
                 <th>ISBN</th>
                 <th>Year</th>
+                <th>Category</th>
                 <th></th>
             </tr>
             <tr th:each="book : ${books}">
@@ -24,6 +25,7 @@
                 <td th:text="${book.title}">Title</td>
                 <td th:text="${book.isbn}">ISBN</td>
                 <td th:text="${book.publicationYear}">Year</td>
+                <td th:text="${book.category.name}">Category</td>
                 <td>
                     <form th:action="@{/books/delete/{id}(id=${book.id})}" method="post" style="display:inline;">
                         <input type="hidden" name="_method" value="delete" />
