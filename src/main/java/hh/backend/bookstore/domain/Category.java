@@ -8,20 +8,23 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long categoryid;
+    private Long categoryid;
 
     private String name;
 
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<Book> books;
 
     public Category() {
-        this.categoryid = 0;
+        this.categoryid = null;
         this.name = null;
         this.books = null;
     }
@@ -30,11 +33,11 @@ public class Category {
         this.name = name;
     }
 
-    public long getCategoryid() {
+    public Long getCategoryid() {
         return categoryid;
     }
 
-    public void setCategoryid(long categoryid) {
+    public void setCategoryid(Long categoryid) {
         this.categoryid = categoryid;
     }
 
