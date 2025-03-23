@@ -1,6 +1,7 @@
 package hh.backend.bookstore.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,6 @@ import hh.backend.bookstore.domain.Book;
 import hh.backend.bookstore.domain.BookRepository;
 import hh.backend.bookstore.domain.Category;
 import hh.backend.bookstore.domain.CategoryRepository;
-
 
 @Controller
 public class BookController {
@@ -46,7 +46,8 @@ public class BookController {
         bookRepository.save(book);
         return "redirect:/index";
     }
-    
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/books/delete/{id}")
     public String deleteBook(@PathVariable("id") Long bookId) {
         bookRepository.deleteById(bookId);
@@ -54,16 +55,15 @@ public class BookController {
     }
 
     @RequestMapping(value = "/editbook/{id}")
-    public String showModStu(@PathVariable("id") Long bookId, Model model){
+    public String showModStu(@PathVariable("id") Long bookId, Model model) {
         model.addAttribute("book", bookRepository.findById(bookId).get());
         model.addAttribute("categories", categoryRepository.findAll());
-    return "editbook";
-}
-
+        return "editbook";
+    }
 
     @PostMapping("/editbook/{id}")
     public String updateBook(@PathVariable("id") Long bookId, @ModelAttribute Book book) {
-        book.setId(bookId); 
+        book.setId(bookId);
         bookRepository.save(book);
         return "redirect:/index";
     }

@@ -5,10 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tervetuloa</title>
-    <link type="text/css" rel="stylesheet" href="/tyylit/bootstrap-4.5.3-dist/css/bootstrap.min.css" th:href="@{/tyylit/bootstrap-4.5.3-dist/css/bootstrap.min.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{/tyylit/bootstrap-4.5.3-dist/css/bootstrap.min.css}" />
 </head>
 
 <body>
+    <p>Welcome, <span sec:authentication="name"></span>!
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+    </p>
+
     <div class="container">
         <h1>Books</h1>
         <table class="table table-striped">
@@ -32,11 +38,12 @@
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                     <a th:href="@{/editbook/{id}(id=${book.id})}" style="display:inline;">
-<button class="btn btn-primary">Edit</button>
-</a>
+                        <button class="btn btn-primary">Edit</button>
+                    </a>
                 </td>
             </tr>
         </table>
+
         <br>
         <a href="/addbook"><button class="btn btn-success">Add Book</button></a>
         <a href="/addcategory"><button class="btn btn-success">Add Category</button></a>

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en " xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bookform</title>
 </head>
+
 <body>
     <h1>Add book</h1>
     <form method="post" action="#" th:action="@{/addbook}" th:object="${book}">
@@ -13,12 +15,14 @@
         <p>ISBN:<input type="text" th:field="*{isbn}" placeholder="ISBN" /></p>
         <p>Year:<input type="text" th:field="*{publicationYear}" placeholder="Year" /></p>
         <p>Category:<select th:field="*{category}">
-                <option th:each="category : ${categories}" th:value="${category.categoryid}" th:text="${category.name}">Category</option>
+                <option th:each="category : ${categories}" th:value="${category.categoryid}" th:text="${category.name}">
+                    Category</option>
             </select>
         </p>
         <p><button type="submit">Add</button></p>
 
     </form>
-    
+
 </body>
+
 </html>
